@@ -98,10 +98,10 @@ What does ChatWeb Offer?
      * [ Frontend Designer & Team Leader ] {Between the two }
   
   * Aaquif Qureshi
-     * [ Backend Engineer & Database Engineer ] { Standing in left }
+     * [ Backend Engineer & Database Engineer ] { Standing left }
   
   * Mrunal Shah
-     * [ Backend Architect & <b> Mentor </b>] { Sitting in Right because always right }
+     * [ Backend Architect & <b> Mentor </b>] { Sitting Right because always right }
  </td>
  <td>
   
