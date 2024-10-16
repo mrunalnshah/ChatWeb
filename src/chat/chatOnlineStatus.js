@@ -70,8 +70,8 @@ const db_offline_check = await getDocs(
 function offlineFunction(e) {
   e.preventDefault();
   if (db_offline_check.empty) {
-    console.error("No user found with this email"); // Providing an error message
-    return; // Exiting the function early if there's an error
+    console.error("No user found with this email");
+    return;
   }
   db_offline_check.forEach(async (doc) => {
     var uname = doc.data().email;
@@ -85,4 +85,4 @@ function offlineFunction(e) {
 // Adding both click and touchstart event listeners
 document.getElementById("signOutButton").addEventListener("click", offlineFunction);
 document.getElementById("signOutButton").addEventListener("touchstart", offlineFunction);
-document.getElementById("singOut-icon").addEventListener("click", offlineFunction);
+document.getElementById("signOut-icon").addEventListener("click", offlineFunction);

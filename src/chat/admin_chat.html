@@ -14,10 +14,11 @@
   <div class="container-fluid" id="chat">
     <div class="row row-up">
       <div class="col-3 border-end border-bottom border-4 header-colour hideOnMobile">
-        <h2>ChatWeb</h2>
+        <h2>ChatWeb Admin</h2>
       </div>
       <div class="col border-bottom border-3 header-colour header">
         <h3>Live Server Chat</h3>
+        <button id="adminVerificationPortal"> Admin Verification Portal </button>
         <input id="signOutButton" type="submit" value="Sign Out" />
         <img src="../../assets/log-out.png" alt="log-out" id="signOut-icon" />
       </div>
@@ -55,6 +56,11 @@
       </div>
     </div>
   </div>
+  <script>
+    document.getElementById("adminVerificationPortal").onclick = function () {
+      window.location.href = "verificationPortal.html";
+    };
+  </script>
   <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
