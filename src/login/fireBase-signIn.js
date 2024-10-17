@@ -1,9 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 import { getFirestore, collection, where, query, getDocs, updateDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBumQaN29IZF8LqvB3kqUIgF7v1r5m2Hv0",
     authDomain: "chatweb-awful.firebaseapp.com",
@@ -16,7 +14,6 @@ const firebaseConfig = {
 };
 
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -76,20 +73,28 @@ submitSup.addEventListener("click", async function (event) {
             }
 
             let isApproved = false;
+            let isBanned = false;
             let username = "";
             db_user.forEach((doc) => {
                 const userData = doc.data();
                 username = userData.username;
-                if (userData.request === "approved") {
+                if(userData.request == "ban"){
+                    isBanned = true;
+                }
+                if (userData.request == "approved") {
                     isApproved = true;
                 }
+  
             });
-
-            if (!isApproved) {
-                alert("User has not been approved by the admin.");
-                window.location.href = "../login/login.html";
-                return; // Stop further execution
+            if(isBanned == true){
+                document.getElementById('invalid-login').innerHTML = "User has been banned.";
+                return;
             }
+            if (isApproved == false) {
+                document.getElementById('invalid-login').innerHTML = "User has not been verified by the admin.";
+                return; 
+            }
+
 
             const statusCollection = collection(db, 'status');
             const db_status = await getDocs(query(statusCollection, where("email", "==", user.email)));

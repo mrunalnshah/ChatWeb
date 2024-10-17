@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 var userName_signUp = '';
 
@@ -30,6 +30,15 @@ submitSup.addEventListener("click", async function (event) {
     const userName = document.getElementById("userNameSup").value;
 
     try {
+        
+        const adminCollection = collection(db, 'admin');
+        const adminQuery = query(adminCollection, where("username", "==", userName));
+        const adminUsername = await getDocs(adminQuery);
+
+        if (!adminUsername.empty) {
+            throw new Error("Please choose a different username.");
+        }   
+
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
@@ -47,14 +56,10 @@ submitSup.addEventListener("click", async function (event) {
             username: userName,
             status: "Offline",
         });
-
-        alert("Your account is pending admin approval. You will receive an email once your account is verified.");
-
-        window.location.href = "login.html";
+        document.getElementById('invalid-signUp').innerHTML = "Account registered, wait for admin to approve the access."
 
     } catch (error) {
         console.error("Error signing up:", error.message);
-        // Handle errors during signup or Firestore document addition
-        document.getElementById('invalid-signUp').innerHTML = "Error: " + error.message; // Display the error message
+        document.getElementById('invalid-signUp').innerHTML = "Error: " + error.message; 
     }
 });
